@@ -8,7 +8,7 @@ require("dotenv").config()
 const app=exp()
 
 //create a server
-app.listen(80,()=>console.log("Listening to port 80"))
+app.listen(4000,()=>console.log("Listening to port 4000"))
 
 
 
@@ -26,9 +26,12 @@ const subProcess = require('child_process')
 
 //route for refresh
 app.get("/refresh",async (req,res)=>{
+  console.log("Working");
     let result2=[]
 
     let finalResult=[]
+
+    let ipsAsString=""
 
 
     let count=0
@@ -82,6 +85,8 @@ app.get("/refresh",async (req,res)=>{
                           }
                           if(newstr=="Physical" || newstr=="" || newstr=="ff-ff-ff-ff-ff-ff")
                           continue
+                          newstr+=","
+                          ipsAsString+=newstr
                           finalResult.push(newstr)
                        }
 
@@ -97,7 +102,7 @@ app.get("/refresh",async (req,res)=>{
 
                       //Sending response
                       
-                      res.send({message:"Getting all IPs",payload:finalResult})
+                      res.send(ipsAsString)
                     }
                   })
                   
